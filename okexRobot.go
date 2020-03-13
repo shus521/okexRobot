@@ -1,8 +1,8 @@
 package main
 
 import (
+	"fmt"
 	service "okexRobot/service"
-	util "okexRobot/utils"
 	"os"
 	"time"
 )
@@ -13,10 +13,11 @@ func main() {
 	if len(args) == 3 {
 		coin, genre = args[1], args[2]
 	}
-	conf := util.GlobalObject
 	for {
-		service.GetCoinInfo(conf.Url, coin, genre)
-		service.GetAllHolding(conf.Url, coin, genre)
+		fmt.Println(time.Now().Local())
+		service.GetCoinInfo(coin, genre)
+		service.GetAllHolding(coin, genre)
+		service.GetMyHolding(coin)
 		time.Sleep(1000 * time.Millisecond)
 	}
 }

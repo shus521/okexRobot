@@ -8,7 +8,10 @@ import (
 )
 
 type GlobalObj struct {
-	Url string `json:"url"`
+	Url        string `json:"url"`
+	Apikey     string `json:"apikey"`
+	Secrekey   string `json:"secrekey"`
+	Passphrase string `json:"passphrase"`
 }
 
 var GlobalObject *GlobalObj

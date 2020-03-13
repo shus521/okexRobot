@@ -1,3 +1,6 @@
 {
-  "url" : "http://www.okex.me"
+  "url" : "https://www.okex.me",
+  "apikey": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+  "secrekey": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "passphrase": "aaaaaaaa"
 }
