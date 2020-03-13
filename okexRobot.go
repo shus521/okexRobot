@@ -16,6 +16,7 @@ func main() {
 	conf := util.GlobalObject
 	for {
 		service.GetCoinInfo(conf.Url, coin, genre)
+		service.GetAllHolding(conf.Url, coin, genre)
 		time.Sleep(1000 * time.Millisecond)
 	}
 }
