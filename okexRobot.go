@@ -4,15 +4,18 @@ import (
 	service "okexRobot/service"
 	util "okexRobot/utils"
 	"os"
+	"time"
 )
 
 func main() {
-	coin := "btc-usdt"
+	coin, genre := "BTC", "SWAP"
 	args := os.Args
-	if len(args) == 2 {
-		coin = args[1]
+	if len(args) == 3 {
+		coin, genre = args[1], args[2]
 	}
 	conf := util.GlobalObject
-	service.GetCoinInfo(conf.Url, coin)
-
+	for {
+		service.GetCoinInfo(conf.Url, coin, genre)
+		time.Sleep(1000 * time.Millisecond)
+	}
 }

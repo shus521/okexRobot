@@ -6,12 +6,12 @@ import (
 	"net/http"
 )
 
-func SendGet(url string) string {
+func SendGet(url string) []byte {
 	res, err := http.Get(url)
 	if err != nil {
 		fmt.Println(err)
 	}
 	defer res.Body.Close()
 	body, _ := ioutil.ReadAll(res.Body)
-	return string(body)
+	return body
 }
