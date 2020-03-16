@@ -20,4 +20,5 @@ func main() {
 		service.GetMyHolding(coin)
 		time.Sleep(1000 * time.Millisecond)
 	}
+	//service.Order()
 }

@@ -20,7 +20,7 @@ import (
 func GetCoinInfo(coin string, genre string) {
 	url := "/api/swap/v3/instruments/" + coin + "-USDT-" + genre + "/ticker"
 	result := util.SendGet(url, "public")
-	fmt.Printf("[okex]%s上次交易价格: %s\n", coin, result["last"])
+	fmt.Printf("[okex-USDT永续合约]%s上次交易价格: %s\n", coin, result["last"])
 
 }
 
@@ -33,17 +33,22 @@ func GetCoinInfo(coin string, genre string) {
 func GetAllHolding(coin string, genre string) {
 	url := "/api/swap/v3/instruments/" + coin + "-USDT-" + genre + "/open_interest"
 	result := util.SendGet(url, "public")
-	fmt.Printf("[okex]%s平台总持仓量: %s\n", coin, result["amount"])
+	fmt.Printf("[okex-USDT永续合约]%s平台总持仓量: %s\n", coin, result["amount"])
 }
 
 /**
- * 获取我的永续合约某个币种的持仓量
+ * 获取我的USDT永续合约某个币种的持仓量
  * @param url ok平台地址
  * @param coin 要获取的币种
  */
 func GetMyHolding(coin string) {
 	url := "/api/swap/v3/" + coin + "-USDT-SWAP/position"
 	result := util.SendGet(url, "private")
-	holding := result["holding"].([]interface{})[0].(map[string]interface{})
-	fmt.Printf("我： 开单方向:%s;持仓均价:%s;预估强平价:%s", holding["side"], holding["avg_cost"], holding["liquidation_price"])
+	if result["holding"] == nil {
+		fmt.Println("获取异常")
+	} else {
+		holding := result["holding"].([]interface{})[0].(map[string]interface{})
+		fmt.Printf("[okex-USDT永续合约]开单方向:%s;持仓均价:%s;预估强平价:%s\n", holding["side"],
+			holding["avg_cost"], holding["liquidation_price"])
+	}
 }

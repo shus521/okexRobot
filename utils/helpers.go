@@ -17,6 +17,7 @@ func SetSign(timestamp string, method string, requestPath string, body string, s
 	return base64.StdEncoding.EncodeToString(mac.Sum(nil))
 }
 
+//获取ok服务器上的时间
 func GetOkTime(url string) interface{} {
 	res, err := http.Get(url)
 	if err != nil {
