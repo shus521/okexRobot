@@ -8,7 +8,6 @@ package service
 
 import (
 	"encoding/json"
-	"fmt"
 	util "okexRobot/utils"
 )
 
@@ -22,7 +21,7 @@ type OrderData struct {
 	InstrumentID string `json:"instrument_id"`
 }
 
-func Order() {
+func Order() map[string]interface{} {
 	url := "/api/swap/v3/order"
 	orderData := OrderData{
 		ClientOid:    "test1",
@@ -35,5 +34,5 @@ func Order() {
 	}
 	jsonStr, _ := json.Marshal(orderData)
 	result := util.SendPost(url, string(jsonStr))
-	fmt.Println(result)
+	return result
 }
