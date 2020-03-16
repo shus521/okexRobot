@@ -10,7 +10,6 @@ import (
  * 发送get请求
  */
 func SendGet(url string, needHeader string) map[string]interface{} {
-	data := map[string]interface{}{}
 	client := &http.Client{}
 	config := GlobalObject
 	newUrl := config.Url + url
@@ -20,7 +19,6 @@ func SendGet(url string, needHeader string) map[string]interface{} {
 
 		req.Header.Add("OK-ACCESS-KEY", config.Apikey)
 		req.Header.Add("OK-ACCESS-PASSPHRASE", config.Passphrase)
-		//time := strconv.FormatInt(time.Now().UnixNano() / 1e6, 10)
 		time := GetOkTime(config.Url + "/api/general/v3/time").(string)
 
 		req.Header.Add("OK-ACCESS-TIMESTAMP", time)
@@ -29,6 +27,7 @@ func SendGet(url string, needHeader string) map[string]interface{} {
 
 	}
 	resp, _ := client.Do(req)
+	data := map[string]interface{}{}
 	if resp == nil {
 		return data
 	}

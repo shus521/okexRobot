@@ -44,6 +44,6 @@ func GetAllHolding(coin string, genre string) {
 func GetMyHolding(coin string) {
 	url := "/api/swap/v3/" + coin + "-USDT-SWAP/position"
 	result := util.SendGet(url, "private")
-	//json.Unmarshal([]byte(result["holding"].(string)), data)
-	fmt.Println(result["holding"])
+	holding := result["holding"].([]interface{})[0].(map[string]interface{})
+	fmt.Printf("我： 开单方向:%s;持仓均价:%s;预估强平价:%s", holding["side"], holding["avg_cost"], holding["liquidation_price"])
 }
