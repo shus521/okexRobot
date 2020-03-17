@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"encoding/json"
+	"github.com/typa01/go-utils"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -28,4 +29,9 @@ func GetOkTime(url string) interface{} {
 	data := map[string]interface{}{}
 	json.Unmarshal(body, &data)
 	return data["epoch"]
+}
+
+//获取GUid
+func GetGUid() string {
+	return tsgutils.GUID()
 }

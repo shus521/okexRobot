@@ -21,16 +21,24 @@ type OrderData struct {
 	InstrumentID string `json:"instrument_id"`
 }
 
-func Order() map[string]interface{} {
+/**
+ * 永续合约下单
+ * @param price 下单价格
+ * @param num 下单数量(张)
+ * @param uid 订单id
+ * @param coin 币种
+ * @param direction 交易方向 1开多 2开空 3平多 4平空
+ */
+func Order(price string, num string, uid string, coin string, direction string) map[string]interface{} {
 	url := "/api/swap/v3/order"
 	orderData := OrderData{
-		ClientOid:    "test1",
-		Size:         "100",
+		ClientOid:    uid,
+		Size:         num,
 		OrderType:    "0",
-		Type:         "1",
+		Type:         direction,
 		MatchPrice:   "",
-		Price:        "100",
-		InstrumentID: "BTC-USDT-SWAP",
+		Price:        price,
+		InstrumentID: coin + "-USDT-SWAP",
 	}
 	jsonStr, _ := json.Marshal(orderData)
 	result := util.SendPost(url, string(jsonStr))
