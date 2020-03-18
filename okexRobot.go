@@ -20,9 +20,9 @@ func main() {
 	go web()
 	for {
 		fmt.Println(time.Now().Local())
-		service.GetCoinInfo(coin, genre)
+		last := service.GetCoinInfo(coin, genre)
 		service.GetAllHolding(coin, genre)
-		service.GetMyHolding(coin)
+		service.GetMyHolding(coin, last)
 		time.Sleep(1000 * time.Millisecond)
 	}
 	//service.Order()
@@ -30,6 +30,7 @@ func main() {
 
 func web() {
 	http.HandleFunc("/order", service.OrderServer)
+	http.HandleFunc("/getOrderList", service.GetOrderListServer)
 	err := http.ListenAndServe(":9090", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe:", err)

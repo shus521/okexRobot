@@ -7,12 +7,12 @@ import (
 	"strings"
 )
 
-func Send(content string, receiver []string) {
+func SendMail(subject string, content string, receiver []string) {
 	msg := &mail.Message{
 		mail.Header{
 			"From":         {"1343785360@qq.com"},
 			"To":           receiver,
-			"Subject":      {"变价提醒!"},
+			"Subject":      {subject},
 			"Content-Type": {"text/plain"},
 		},
 		strings.NewReader(content),
