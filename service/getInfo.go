@@ -53,9 +53,13 @@ func GetMyHolding(coin string, last float64) {
 		holding := result["holding"].([]interface{})[0].(map[string]interface{})
 		avg, _ := strconv.ParseFloat(holding["avg_cost"].(string), 64)
 		num, _ := strconv.ParseFloat(holding["position"].(string), 64)
-		pnl := (avg - last) * 0.0001 * num
-		fmt.Printf("[okex-USDT永续合约]开单方向:%s;持仓均价:%s;预估强平价:%s;盈亏:%f\n", holding["side"],
-			holding["avg_cost"], holding["liquidation_price"], pnl)
+		base := 0.01
+		if holding["side"] == "long" {
+			base = -0.01
+		}
+		pnl := (avg - last) * base * num
+		fmt.Printf("[okex-USDT永续合约]开单方向:%s;持仓均价:%s;持仓量:%s;预估强平价:%s;盈亏:%f\n", holding["side"],
+			holding["avg_cost"], holding["avail_position"], holding["liquidation_price"], pnl)
 	}
 }
 

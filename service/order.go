@@ -21,6 +21,11 @@ type OrderData struct {
 	InstrumentID string `json:"instrument_id"`
 }
 
+type CancelData struct {
+	InstrumentId string `json:"instrument_id"`
+	OrderId      string `json:"order_id"`
+}
+
 /**
  * 永续合约下单
  * @param price 下单价格
@@ -41,6 +46,17 @@ func Order(price string, num string, uid string, coin string, direction string) 
 		InstrumentID: coin + "-USDT-SWAP",
 	}
 	jsonStr, _ := json.Marshal(orderData)
+	result := util.SendPost(url, string(jsonStr))
+	return result
+}
+
+func CancelOrder(coin string, orderId string) map[string]interface{} {
+	url := "/api/swap/v3/cancel_order/" + coin + "-USDT-SWAP/" + orderId
+	cancelData := CancelData{
+		InstrumentId: coin + "-USDT-SWAP",
+		OrderId:      orderId,
+	}
+	jsonStr, _ := json.Marshal(cancelData)
 	result := util.SendPost(url, string(jsonStr))
 	return result
 }

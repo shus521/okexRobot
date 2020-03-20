@@ -51,3 +51,16 @@ func GetOrderListServer(w http.ResponseWriter, req *http.Request) {
 			tmp["price"].(string), tmp["size"].(string), tmp["type"].(string))
 	}
 }
+
+/**
+ * 撤单
+ * @param coin 币种
+ * @param order_id 订单号
+ */
+func CancelOrderServer(w http.ResponseWriter, req *http.Request) {
+	query := req.URL.Query()
+	coin := query.Get("coin")
+	orderId := query.Get("order_id")
+	result := CancelOrder(coin, orderId)
+	fmt.Println(result)
+}
